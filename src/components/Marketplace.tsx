@@ -1,102 +1,100 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Star } from 'lucide-react';
+import { ArrowRight, Star, ShoppingBag, Check } from 'lucide-react';
 import { SITE_CONFIG } from '@/lib/data';
 
 const Marketplace = () => {
   return (
-    <section id="marketplace" className="py-24 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="marketplace" className="py-24 lg:py-32 bg-white overflow-hidden border-t border-gray-50">
+      <div className="max-w-7xl mx-auto px-6">
         
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <span className="text-brand-green font-bold tracking-wider uppercase text-sm">
-            Empowering Talent
-          </span>
-          <h2 className="text-4xl font-extrabold text-brand-black mt-2">
-            Student Marketplace
-          </h2>
-          <p className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg">
-            We support student entrepreneurship. Check out businesses owned by The Consent members.
-          </p>
+        {/* HEADER SECTION: Bold & Minimal */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end mb-24">
+          <div className="lg:col-span-7">
+            <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-black leading-[0.85] uppercase italic">
+              STUDENT <br />
+              <span className="text-red-600">MARKET.</span>
+            </h1>
+          </div>
+          <div className="lg:col-span-5">
+            <p className="text-xl text-gray-500 font-light leading-relaxed">
+              We believe in economic empowerment. A platform built to spotlight the hustles and talents of the Consent_KE family.
+            </p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
           
-          {/* LEFT: The "Business of the Week" Card */}
-          <div className="relative group">
-            {/* Decorative background blob */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-brand-red to-brand-green rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+          {/* LEFT: Featured Spotlight */}
+          <div className="group">
+            <div className="flex items-center justify-between mb-6">
+               <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.3em] text-red-600">
+                  <Star size={14} fill="currentColor" />
+                  Featured Hustle
+               </div>
+               <span className="text-gray-300 font-bold italic">/ 01</span>
+            </div>
             
-            <div className="relative bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-xl">
-              {/* Image Section */}
-              <div className="relative h-64 w-full bg-gray-100">
-                <Image 
-                  src="/pappsy.jpeg" 
-                  alt="Student baking cakes"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur text-brand-black px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-sm">
-                  <Star size={12} fill="#eab308" className="text-yellow-500"/>
-                  Featured Business
-                </div>
-              </div>
+            <div className="relative aspect-square md:aspect-[4/5] overflow-hidden bg-gray-100 rounded-sm mb-8">
+              <Image 
+                src="/pappsy.jpeg" 
+                alt="Featured Student Business"
+                fill
+                className="object-cover transition-transform duration-1000 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500" />
+            </div>
 
-              {/* Details Section */}
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Delicious Bakes KU</h3>
-                <p className="text-gray-600 mb-6 line-clamp-2">
-                  Freshly baked custom cakes for birthdays, graduations, and events. 
-                  Made with love by a KU student. Affordable prices for students!
-                </p>
-                
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-500 font-medium">Owned by</p>
-                    <p className="text-sm font-bold text-brand-black">Sharon Mwende (Member)</p>
-                  </div>
-                  <button className="bg-brand-black text-white px-6 py-2 rounded-lg font-bold hover:bg-brand-red transition flex items-center gap-2 text-sm">
-                    Order Now <ArrowRight size={16} />
-                  </button>
-                </div>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div>
+                <h3 className="text-3xl font-black tracking-tight text-black mb-1">Delicious Bakes KU</h3>
+                <p className="text-gray-500 font-medium italic">Sharon Mwende — Member Since 2021</p>
               </div>
+              <Link 
+                href={SITE_CONFIG.whatsappLink}
+                target="_blank"
+                className="inline-flex items-center justify-center gap-3 bg-black text-white px-8 py-4 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-red-600 transition-all"
+              >
+                Place Order <ShoppingBag size={16} />
+              </Link>
             </div>
           </div>
 
-          {/* RIGHT: The "Call to Action" Text */}
-          <div className="lg:pl-10">
-            <h3 className="text-3xl font-bold mb-6 text-brand-black">
-              Do you have a <span className="text-brand-red">Hustle?</span>
-            </h3>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              The Consent_KE is more than just politics. We believe in economic empowerment. 
-              As a member, you get a platform to market your skills and products to over 1,000 students and alumni.
-            </p>
+          {/* RIGHT: The Pitch & List */}
+          <div className="lg:pt-20">
+            <div className="max-w-md">
+              <h3 className="text-4xl font-black tracking-tighter uppercase mb-8">
+                Got a <span className="text-red-600 italic">Hustle?</span>
+              </h3>
+              <p className="text-lg text-gray-600 leading-relaxed mb-10">
+                Consent_KE provides you with an exclusive audience of over 1,000 members. Market your skills, sell your products, and grow your brand within a trusted network.
+              </p>
 
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-center gap-3">
-                <div className="h-2 w-2 bg-brand-green rounded-full"></div>
-                <span className="text-gray-700 font-medium">Free advertising on our platforms</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <div className="h-2 w-2 bg-brand-green rounded-full"></div>
-                <span className="text-gray-700 font-medium">Access to a network of buyers</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <div className="h-2 w-2 bg-brand-green rounded-full"></div>
-                <span className="text-gray-700 font-medium">Business mentorship opportunities</span>
-              </li>
-            </ul>
+              <div className="space-y-0 border-t border-gray-100 divide-y divide-gray-100 mb-12">
+                {[
+                  "Free visibility on all official channels",
+                  "Direct access to student & alumni buyers",
+                  "Business mentorship & networking",
+                  "Verified 'Consent Member' Badge"
+                ].map((item, i) => (
+                  <div key={i} className="py-5 flex items-center gap-4 group">
+                    <Check className="text-red-600 transition-transform group-hover:scale-125" size={18} />
+                    <span className="text-gray-900 font-bold uppercase text-xs tracking-widest">{item}</span>
+                  </div>
+                ))}
+              </div>
 
-            <Link 
-              href={SITE_CONFIG.whatsappLink}
-              target="_blank" 
-              className="inline-flex items-center gap-2 text-brand-red font-bold hover:text-red-700 transition border-b-2 border-brand-red pb-1"
-            >
-              Contact Admin to List Your Business
-              <ArrowRight size={20} />
-            </Link>
+              <Link 
+                href={SITE_CONFIG.whatsappLink}
+                target="_blank"
+                className="group inline-flex items-center gap-4 text-sm font-black uppercase tracking-[0.2em] text-black hover:text-red-600 transition-all"
+              >
+                List your business now
+                <div className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-red-600 transition-all">
+                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+            </div>
           </div>
 
         </div>

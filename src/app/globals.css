@@ -2,3 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes twinkle {
+  0%, 100% {
+    color: #ffffff;
+    text-shadow: none;
+    opacity: 1;
+  }
+  50% {
+    color: #ef4444;
+    text-shadow: 0 0 8px #ef4444, 0 0 20px #ef4444aa;
+    opacity: 0.75;
+  }
+}
