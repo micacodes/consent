@@ -48,7 +48,7 @@ const About = () => {
             {[
               { name: "Mosinga",     role: "Head of Comms",       img: "/Mosinga.jpeg"  },
               { name: "Juliet",      role: "H. Finance",          img: "/Owino.jpeg"    },
-              { name: "Otema Beryl", role: "Managing Director",   img: "/Beryl.jpeg"    },
+              { name: "Otema Beryl", role: "Head Marketing",   img: "/Beryl.jpeg"    },
               { name: "Sandra",      role: "Marketing Associate", img: "/Sandra.jpeg"   },
               { name: "Darius",      role: "Project Manager",     img: "/Darius.jpeg"   },
               { name: "Emmanuel",    role: "Digital Marketing",   img: "/Emmanuel.jpeg" },
