@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Star, ShoppingBag, Check, Shirt, GraduationCap } from 'lucide-react';
@@ -6,7 +7,7 @@ import { SITE_CONFIG } from '@/lib/data';
 /* ─────────────────────────────────────────────
    Small reusable photo-strip component
 ───────────────────────────────────────────── */
-const PhotoStrip = ({ images }) => (
+const PhotoStrip = ({ images }: { images: { src: string; alt: string }[] }) => (
   <div className="grid grid-cols-3 gap-1.5 mt-2">
     {images.map(({ src, alt }, i) => (
       <div key={i} className="relative aspect-square overflow-hidden bg-gray-100">
@@ -24,7 +25,13 @@ const PhotoStrip = ({ images }) => (
 /* ─────────────────────────────────────────────
    Business card used for Betty's two hustles
 ───────────────────────────────────────────── */
-const BusinessCard = ({ number, icon: Icon, title, tagline, accentColor }) => (
+const BusinessCard = ({ number, icon: Icon, title, tagline, accentColor }: {
+  number: string;
+  icon: React.ElementType;
+  title: string;
+  tagline: string;
+  accentColor: string;
+}) => (
   <div className="flex items-start gap-5 py-6 border-b border-gray-100 last:border-0">
     <div
       className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0 mt-0.5"
@@ -43,7 +50,7 @@ const BusinessCard = ({ number, icon: Icon, title, tagline, accentColor }) => (
 /* ─────────────────────────────────────────────
    Pull-quote block
 ───────────────────────────────────────────── */
-const PullQuote = ({ children }) => (
+const PullQuote = ({ children }: { children: React.ReactNode }) => (
   <blockquote className="my-8 relative pl-6">
     <span
       className="absolute left-0 top-0 bottom-0 w-[2px] bg-red-600"
@@ -56,7 +63,7 @@ const PullQuote = ({ children }) => (
 /* ─────────────────────────────────────────────
    Section eyebrow label
 ───────────────────────────────────────────── */
-const Eyebrow = ({ label, counter }) => (
+const Eyebrow = ({ label, counter }: { label: string; counter: string }) => (
   <div className="flex items-center justify-between mb-8">
     <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-red-600">
       <Star size={11} fill="currentColor" />
@@ -69,7 +76,7 @@ const Eyebrow = ({ label, counter }) => (
 /* ─────────────────────────────────────────────
    Arrow link (ghost + arrow circle)
 ───────────────────────────────────────────── */
-const ArrowLink = ({ href, children }) => (
+const ArrowLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <Link
     href={href}
     target="_blank"

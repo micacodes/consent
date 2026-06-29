@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SITE_CONFIG } from '@/lib/data';
 import { ArrowRight, X, ChevronUp } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 function useCountdown(targetDate: string) {
   const [timeLeft, setTimeLeft] = useState({
@@ -35,19 +35,44 @@ function useCountdown(targetDate: string) {
   return timeLeft;
 }
 
+// The three hero background photos
+const BG_PHOTOS = [
+  '/Muthiga (5).jpg',
+  '/Muthiga (31).jpg',
+  '/Muthiga (22).jpg',
+];
+
+const SLIDE_DURATION = 5000; // ms per slide
+
 const Hero = () => {
   const [mounted, setMounted] = useState(false);
   const countdown = useCountdown('2026-06-20T08:00:00');
   const [cardOpen, setCardOpen] = useState(false);
   const [cardDismissed, setCardDismissed] = useState(false);
 
+  // Carousel state
+  const [current, setCurrent] = useState(0);
+  const [fading, setFading] = useState(false);
+
+  const goTo = useCallback((next: number) => {
+    setFading(true);
+    setTimeout(() => {
+      setCurrent(next);
+      setFading(false);
+    }, 600);
+  }, []);
+
+  // Auto-advance
+  useEffect(() => {
+    const id = setInterval(() => {
+      goTo((current + 1) % BG_PHOTOS.length);
+    }, SLIDE_DURATION);
+    return () => clearInterval(id);
+  }, [current, goTo]);
+
   useEffect(() => {
     setMounted(true);
-    
-    // ── ACTIVATE HIDER ──
     document.body.classList.add('hide-whatsapp-now');
-    
-    // Cleanup: Remove when leaving the hero page
     return () => {
       document.body.classList.remove('hide-whatsapp-now');
     };
@@ -57,16 +82,26 @@ const Hero = () => {
 
   return (
     <section className="relative h-screen min-h-[600px] w-full flex items-center overflow-hidden hero-section">
-      
-      {/* 1. BACKGROUND IMAGE */}
+
+      {/* 1. BACKGROUND CAROUSEL */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/banner.png"
-          alt="The Consent Group"
-          fill
-          priority
-          className="object-cover object-center"
-        />
+        {BG_PHOTOS.map((src, i) => (
+          <div
+            key={src}
+            className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+            style={{ opacity: i === current ? (fading ? 0 : 1) : 0 }}
+          >
+            <Image
+              src={src}
+              alt={`Muthiga Hope Center outreach — photo ${i + 1}`}
+              fill
+              priority={i === 0}
+              className="object-cover object-center"
+            />
+          </div>
+        ))}
+
+        {/* Overlays — same as before */}
         <div className="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/70 to-transparent" />
         <div className="absolute inset-0 bg-black/50 md:bg-transparent" />
       </div>
@@ -117,6 +152,22 @@ const Hero = () => {
           </div>
 
         </div>
+      </div>
+
+      {/* 3. CAROUSEL DOTS — bottom-centre */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+        {BG_PHOTOS.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            className={`rounded-full transition-all duration-300 ${
+              i === current
+                ? 'w-6 h-2 bg-brand-red'
+                : 'w-2 h-2 bg-white/40 hover:bg-white/70'
+            }`}
+          />
+        ))}
       </div>
 
       {/* ── FLOATING CHARITY EVENT CARD ── */}
